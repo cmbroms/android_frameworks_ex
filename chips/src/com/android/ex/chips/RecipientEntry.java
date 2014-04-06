@@ -74,11 +74,9 @@ public class RecipientEntry {
      */
     private byte[] mPhotoBytes;
 
-    private final boolean mIsGalContact;
-
     private RecipientEntry(int entryType, String displayName, String destination,
             int destinationType, String destinationLabel, long contactId, long dataId,
-            Uri photoThumbnailUri, boolean isFirstLevel, boolean isValid, boolean isGalContact) {
+            Uri photoThumbnailUri, boolean isFirstLevel, boolean isValid) {
         mEntryType = entryType;
         mIsFirstLevel = isFirstLevel;
         mDisplayName = displayName;
@@ -91,7 +89,6 @@ public class RecipientEntry {
         mPhotoBytes = null;
         mIsDivider = false;
         mIsValid = isValid;
-        mIsGalContact = isGalContact;
     }
 
     public boolean isValid() {
@@ -117,7 +114,7 @@ public class RecipientEntry {
 
         return new RecipientEntry(ENTRY_TYPE_PERSON, tokenizedAddress, tokenizedAddress,
                 INVALID_DESTINATION_TYPE, null,
-                INVALID_CONTACT, INVALID_CONTACT, null, true, isValid, false /* isGalContact */);
+                INVALID_CONTACT, INVALID_CONTACT, null, true, isValid);
     }
 
     /**
@@ -127,7 +124,7 @@ public class RecipientEntry {
             final boolean isValid) {
         return new RecipientEntry(ENTRY_TYPE_PERSON, phoneNumber, phoneNumber,
                 INVALID_DESTINATION_TYPE, null,
-                INVALID_CONTACT, INVALID_CONTACT, null, true, isValid, false /* isGalContact */);
+                INVALID_CONTACT, INVALID_CONTACT, null, true, isValid);
     }
 
     /**
@@ -149,35 +146,34 @@ public class RecipientEntry {
     public static RecipientEntry constructGeneratedEntry(String display, String address,
             boolean isValid) {
         return new RecipientEntry(ENTRY_TYPE_PERSON, display, address, INVALID_DESTINATION_TYPE,
-                null, GENERATED_CONTACT, GENERATED_CONTACT, null, true, isValid,
-                false /* isGalContact */);
+                null, GENERATED_CONTACT, GENERATED_CONTACT, null, true, isValid);
     }
 
     public static RecipientEntry constructTopLevelEntry(String displayName, int displayNameSource,
             String destination, int destinationType, String destinationLabel, long contactId,
-            long dataId, Uri photoThumbnailUri, boolean isValid, boolean isGalContact) {
+            long dataId, Uri photoThumbnailUri, boolean isValid) {
         return new RecipientEntry(ENTRY_TYPE_PERSON, pickDisplayName(displayNameSource,
                 displayName, destination), destination, destinationType, destinationLabel,
-                contactId, dataId, photoThumbnailUri, true, isValid, isGalContact);
+                contactId, dataId, photoThumbnailUri, true, isValid);
     }
 
     public static RecipientEntry constructTopLevelEntry(String displayName, int displayNameSource,
             String destination, int destinationType, String destinationLabel, long contactId,
-            long dataId, String thumbnailUriAsString, boolean isValid, boolean isGalContact) {
+            long dataId, String thumbnailUriAsString, boolean isValid) {
         return new RecipientEntry(ENTRY_TYPE_PERSON, pickDisplayName(displayNameSource,
                 displayName, destination), destination, destinationType, destinationLabel,
                 contactId, dataId, (thumbnailUriAsString != null ? Uri.parse(thumbnailUriAsString)
-                        : null), true, isValid, isGalContact);
+                        : null), true, isValid);
     }
 
     public static RecipientEntry constructSecondLevelEntry(String displayName,
             int displayNameSource, String destination, int destinationType,
             String destinationLabel, long contactId, long dataId, String thumbnailUriAsString,
-            boolean isValid, boolean isGalContact) {
+            boolean isValid) {
         return new RecipientEntry(ENTRY_TYPE_PERSON, pickDisplayName(displayNameSource,
                 displayName, destination), destination, destinationType, destinationLabel,
                 contactId, dataId, (thumbnailUriAsString != null ? Uri.parse(thumbnailUriAsString)
-                        : null), false, isValid, isGalContact);
+                        : null), false, isValid);
     }
 
     public int getEntryType() {
@@ -232,10 +228,6 @@ public class RecipientEntry {
 
     public boolean isSelectable() {
         return mEntryType == ENTRY_TYPE_PERSON;
-    }
-
-    public boolean isGalContact() {
-        return mIsGalContact;
     }
 
     @Override

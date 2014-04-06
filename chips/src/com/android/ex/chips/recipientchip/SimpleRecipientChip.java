@@ -93,11 +93,6 @@ class SimpleRecipientChip implements BaseRecipientChip {
     }
 
     @Override
-    public boolean isGalContact() {
-        return mEntry.isGalContact();
-    }
-
-    @Override
     public String toString() {
         return mDisplay + " <" + mValue + ">";
     }

@@ -83,11 +83,6 @@ public class VisibleRecipientChip extends ImageSpan implements DrawableRecipient
     }
 
     @Override
-    public boolean isGalContact() {
-        return mDelegate.isGalContact();
-    }
-
-    @Override
     public Rect getBounds() {
         return getDrawable().getBounds();
     }
