@@ -36,7 +36,7 @@ import android.provider.ContactsContract.Contacts;
             Phone._ID,                   // 5
             Contacts.PHOTO_THUMBNAIL_URI,// 6
             Contacts.DISPLAY_NAME_SOURCE // 7
-        }, Phone.CONTENT_FILTER_URI, Phone.CONTENT_URI, Phone.NORMALIZED_NUMBER) {
+        }, Phone.CONTENT_FILTER_URI, Phone.CONTENT_URI) {
 
             @Override
             public CharSequence getTypeLabel(Resources res, int type, CharSequence label) {
@@ -54,7 +54,7 @@ import android.provider.ContactsContract.Contacts;
             Email._ID,                   // 5
             Contacts.PHOTO_THUMBNAIL_URI,// 6
             Contacts.DISPLAY_NAME_SOURCE // 7
-        }, Email.CONTENT_FILTER_URI, Email.CONTENT_URI, Email.DATA) {
+        }, Email.CONTENT_FILTER_URI, Email.CONTENT_URI) {
 
             @Override
             public CharSequence getTypeLabel(Resources res, int type, CharSequence label) {
@@ -67,7 +67,6 @@ import android.provider.ContactsContract.Contacts;
         private final String[] mProjection;
         private final Uri mContentFilterUri;
         private final Uri mContentUri;
-        private final String mSelectionColumn;
 
         public static final int NAME = 0;                // String
         public static final int DESTINATION = 1;         // String
@@ -78,12 +77,10 @@ import android.provider.ContactsContract.Contacts;
         public static final int PHOTO_THUMBNAIL_URI = 6; // String
         public static final int DISPLAY_NAME_SOURCE = 7; // int
 
-        public Query (String[] projection, Uri contentFilter,
-                Uri content, String selectionColumn) {
+        public Query (String[] projection, Uri contentFilter, Uri content) {
             mProjection = projection;
             mContentFilterUri = contentFilter;
             mContentUri = content;
-            mSelectionColumn = selectionColumn;
         }
 
         public String[] getProjection() {
@@ -96,10 +93,6 @@ import android.provider.ContactsContract.Contacts;
 
         public Uri getContentUri() {
             return mContentUri;
-        }
-
-        public String getSelectionColumn() {
-            return mSelectionColumn;
         }
 
         public abstract CharSequence getTypeLabel(Resources res, int type, CharSequence label);
